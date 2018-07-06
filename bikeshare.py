@@ -140,6 +140,10 @@ def user_stats(df):
     if "Birth Year" in df.columns:
         print("The most common birth year is {}\n".format(int(df["Birth Year"].mode()[0])))
 
+def display_raw_data(df, start, end):
+    # Displays raws data with specific start and end line.
+    print(df.iloc[start:end])
+
 def main():
     while True:
         print("\t\n{}\n\nHello!, Let’s explore some US bikeshare data!\n\n{}\n".format('#'*50, '#'*50))
@@ -156,7 +160,14 @@ def main():
         time_stats(df)
         user_stats(df)
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n')
+        lookup_raw_data = input('\n\nWould you like to see the first five records of raw data? Enter yes or no.\n').lower().strip()
+        round = 0
+        while(lookup_raw_data != 'no'):
+            display_raw_data(df, round*5, round*5+5)
+            lookup_raw_data = input('\n\nWould you like to see more? Enter yes or no.\n').lower().strip()
+            round += 1
+
+        restart = input('\n\nWould you like to restart? Enter yes or no.\n')
         if restart.lower().strip() != 'yes':
             break
 
